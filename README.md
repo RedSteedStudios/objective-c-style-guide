@@ -9,7 +9,7 @@ We would like to thank the raywenderlich.com team their coding guide that we wer
 Their team includes: [Soheil Moayedi Azarpour](https://github.com/moayes), [Ricardo Rendon Cepeda](https://github.com/ricardo-rendoncepeda), [Tony Dahbura](https://github.com/tdahbura), [Colin Eberhardt](https://github.com/ColinEberhardt), [Matt Galloway](https://github.com/mattjgalloway), [Greg Heo](https://github.com/gregheo), [Matthijs Hollemans](https://github.com/hollance), [Christopher LaPollo](https://github.com/elephantronic), [Saul Mora](https://github.com/casademora), [Andy Pereira](https://github.com/macandyp), [Mic Pringle](https://github.com/micpringle), [Pietro Rea](https://github.com/pietrorea), [Cesare Rocchi](https://github.com/funkyboy), [Marin Todorov](https://github.com/icanzilb), [Nicholas Waynik](https://github.com/ndubbs) and [Ray Wenderlich](https://github.com/raywenderlich).
 
 
-The Red Steed Studios team includes: [Peter Kovacs](https://github.com/RSSPeterKovacs), [Adrian Juhasz](https://github.com/RSSAdrianJuhasz), [Tamas Bogar](https://github.com/RSSTamasBogar), [Peter Sipos](https://github.com/RSSPeterSipos) and [Zoltan Varadi](https://github.com/RSSZoltanVaradi)
+The Red Steed Studios team includes: [Peter Kovacs](https://github.com/RSSPeterKovacs), [Adrian Juhasz](https://github.com/RSSAdrianJuhasz), [Tamas Bogar](https://github.com/RSSTamasBogar), [Peter Sipos](https://github.com/RSSPeterSipos), [Robert Gacsi](https://github.com/RSSRobertGacsi) and [Zoltan Varadi](https://github.com/RSSZoltanVaradi)
 
 ## Background
 
