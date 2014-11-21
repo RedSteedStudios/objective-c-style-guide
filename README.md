@@ -1,6 +1,6 @@
-# The official raywenderlich.com Objective-C style guide.
+# The official Red SteedS tudios Objective-C style guide on the on the basis of raywenderlich.com.
 
-This style guide outlines the coding conventions for raywenderlich.com.
+This style guide outlines the coding conventions for Red Steed Studios.
 
 ## Introduction
 
@@ -10,9 +10,12 @@ This style guide is different from other Objective-C style guides you may see, b
 
 ## Credits
 
-The creation of this style guide was a collaborative effort from various raywenderlich.com team members under the direction of Nicholas Waynik.  The team includes: [Soheil Moayedi Azarpour](https://github.com/moayes), [Ricardo Rendon Cepeda](https://github.com/ricardo-rendoncepeda), [Tony Dahbura](https://github.com/tdahbura), [Colin Eberhardt](https://github.com/ColinEberhardt), [Matt Galloway](https://github.com/mattjgalloway), [Greg Heo](https://github.com/gregheo), [Matthijs Hollemans](https://github.com/hollance), [Christopher LaPollo](https://github.com/elephantronic), [Saul Mora](https://github.com/casademora), [Andy Pereira](https://github.com/macandyp), [Mic Pringle](https://github.com/micpringle), [Pietro Rea](https://github.com/pietrorea), [Cesare Rocchi](https://github.com/funkyboy), [Marin Todorov](https://github.com/icanzilb), [Nicholas Waynik](https://github.com/ndubbs), and [Ray Wenderlich](https://github.com/raywenderlich)
+We would like to thank the raywenderlich.com team their coding guide that we were able to use from the beginning. 
 
-We would like to thank the creators of the [New York Times](https://github.com/NYTimes/objective-c-style-guide) and [Robots & Pencils'](https://github.com/RobotsAndPencils/objective-c-style-guide) Objective-C Style Guides.  These two style guides provided a solid starting point for this guide to be created and based upon.
+Their team includes: [Soheil Moayedi Azarpour](https://github.com/moayes), [Ricardo Rendon Cepeda](https://github.com/ricardo-rendoncepeda), [Tony Dahbura](https://github.com/tdahbura), [Colin Eberhardt](https://github.com/ColinEberhardt), [Matt Galloway](https://github.com/mattjgalloway), [Greg Heo](https://github.com/gregheo), [Matthijs Hollemans](https://github.com/hollance), [Christopher LaPollo](https://github.com/elephantronic), [Saul Mora](https://github.com/casademora), [Andy Pereira](https://github.com/macandyp), [Mic Pringle](https://github.com/micpringle), [Pietro Rea](https://github.com/pietrorea), [Cesare Rocchi](https://github.com/funkyboy), [Marin Todorov](https://github.com/icanzilb), [Nicholas Waynik](https://github.com/ndubbs) and [Ray Wenderlich](https://github.com/raywenderlich).
+
+
+The Red Steed Studios team includes: [Peter Kovacs](https://github.com/RSSPeterKovacs), [Adrian Juhasz](https://github.com/RSSAdrianJuhasz), [Tamas Bogar](https://github.com/RSSTamasBogar), [Peter Sipos](https://github.com/RSSPeterSipos) and [Zoltan Varadi](https://github.com/RSSZoltanVaradi)
 
 ## Background
 
@@ -115,8 +118,20 @@ Use `#pragma mark -` to categorize methods in functional groupings and protocol/
 
 ## Spacing
 
-* Indent using 2 spaces (this conserves space in print and makes line wrapping less likely). Never indent with tabs. Be sure to set this preference in Xcode.
-* Method braces and other braces (`if`/`else`/`switch`/`while` etc.) always open on the same line as the statement but close on a new line.
+* Indent using the XCode default settings with 4 spaces, so everybody with a fresh XCode install can use auto source code formatting (CMD + a, ctrl + i). Never indent with tabs.
+* All the braces (`if`/`else`/`switch`/`while` etc.) always opened and closed on a new line.
+
+**Preferred:**
+```objc
+if (user.isHappy)
+{
+    //Do something
+}
+else 
+{
+    //Do something else
+}
+```
 
 **Preferred:**
 ```objc
@@ -127,16 +142,6 @@ if (user.isHappy) {
 }
 ```
 
-**Not Preferred:**
-```objc
-if (user.isHappy)
-{
-    //Do something
-}
-else {
-    //Do something else
-}
-```
 
 * There should be exactly one blank line between methods to aid in visual clarity and organization. Whitespace within methods should separate functionality, but often there should probably be new methods.
 * Prefer using auto-synthesis. But if necessary, `@synthesize` and `@dynamic` should each be declared on new lines in the implementation.
