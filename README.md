@@ -1,4 +1,4 @@
-# The official Red SteedS tudios Objective-C style guide on the on the basis of raywenderlich.com.
+# The official Red Steed Studios Objective-C style guide on the on the basis of raywenderlich.com.
 
 This style guide outlines the coding conventions for Red Steed Studios.
 
@@ -36,7 +36,6 @@ Here are some of the documents from Apple that informed the style guide. If some
   * [Underscores](#underscores)
 * [Methods](#methods)
 * [Variables](#variables)
-* [Property Attributes](#property-attributes)
 * [Dot-Notation Syntax](#dot-notation-syntax)
 * [Literals](#literals)
 * [Constants](#constants)
@@ -50,10 +49,8 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Class Constructor Methods](#class-constructor-methods)
 * [CGRect Functions](#cgrect-functions)
 * [Golden Path](#golden-path)
-* [Error handling](#error-handling)
 * [Singletons](#singletons)
 * [Line Breaks](#line-breaks)
-* [Smiley Face](#smiley-face)
 * [Xcode Project](#xcode-project)
 
 
@@ -133,7 +130,7 @@ else
 }
 ```
 
-**Preferred:**
+**Not Preferred:**
 ```objc
 if (user.isHappy) {
   //Do something
@@ -186,13 +183,13 @@ Long, descriptive method and variable names are good.
 **Preferred:**
 
 ```objc
-UIButton *settingsButton;
+UIButton* settingsButton;
 ```
 
 **Not Preferred:**
 
 ```objc
-UIButton *setBut;
+UIButton* setBut;
 ```
 
 A three letter prefix should always be used for class names and constants, however may be omitted for Core Data entity names. For any official raywenderlich.com books, starter kits, or tutorials, the prefix 'RWT' should be used.
@@ -216,7 +213,7 @@ Properties should be camel-case with the leading word being lowercase. Use auto-
 **Preferred:**
 
 ```objc
-@property (strong, nonatomic) NSString *descriptiveVariableName;
+@property (strong, nonatomic) NSString* descriptiveVariableName;
 ```
 
 **Not Preferred:**
@@ -231,8 +228,6 @@ When using properties, instance variables should always be accessed and mutated 
 
 An exception to this: inside initializers, the backing instance variable (i.e. _variableName) should be used directly to avoid any potential side effects of the getters/setters.
 
-Local variables should not contain underscores.
-
 ## Methods
 
 In method signatures, there should be a space after the method type (-/+ symbol). There should be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument.
@@ -241,7 +236,7 @@ The usage of the word "and" is reserved.  It should not be used for multiple par
 
 **Preferred:**
 ```objc
-- (void)setExampleText:(NSString *)text image:(UIImage *)image;
+- (void)setExampleText:(NSString*)text image:(UIImage*)image;
 - (void)sendAction:(SEL)aSelector to:(id)anObject forAllCells:(BOOL)flag;
 - (id)viewWithTag:(NSInteger)tag;
 - (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height;
@@ -250,7 +245,7 @@ The usage of the word "and" is reserved.  It should not be used for multiple par
 **Not Preferred:**
 
 ```objc
--(void)setT:(NSString *)text i:(UIImage *)image;
+-(void)setT:(NSString*)text i:(UIImage*)image;
 - (void)sendAction:(SEL)aSelector :(id)anObject :(BOOL)flag;
 - (id)taggedView:(NSInteger)tag;
 - (instancetype)initWithWidth:(CGFloat)width andHeight:(CGFloat)height;
@@ -261,18 +256,21 @@ The usage of the word "and" is reserved.  It should not be used for multiple par
 
 Variables should be named as descriptively as possible. Single letter variable names should be avoided except in `for()` loops.
 
-Asterisks indicating pointers belong with the variable, e.g., `NSString *text` not `NSString* text` or `NSString * text`, except in the case of constants.
+Asterisks indicating pointers belong with the type, e.g., `NSString* text` not `NSString *text`.
 
-[Private properties](#private-properties) should be used in place of instance variables whenever possible. Although using instance variables is a valid way of doing things, by agreeing to prefer properties our code will be more consistent. 
+[Private properties](#private-properties) and instance variables can be used simultaniously where the name of the private variables must begin with an 'underscore'. Whenever a variable gets modified from its class, properties should be used in place of instance variables.
 
 Direct access to instance variables that 'back' properties should be avoided except in initializer methods (`init`, `initWithCoder:`, etc…), `dealloc` methods and within custom setters and getters. For more information on using Accessor Methods in Initializer Methods and dealloc, see [here](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmPractical.html#//apple_ref/doc/uid/TP40004447-SW6).
 
 **Preferred:**
 
 ```objc
-@interface RWTTutorial : NSObject
+@interface RSSCodingGuideViewContoller : NSObject
+{
+  BOOL _userPreferencesInitialized;
+}
 
-@property (strong, nonatomic) NSString *tutorialName;
+@property (strong, nonatomic) NSString *userName;
 
 @end
 ```
@@ -281,42 +279,11 @@ Direct access to instance variables that 'back' properties should be avoided exc
 
 ```objc
 @interface RWTTutorial : NSObject {
-  NSString *tutorialName;
+  NSMutableDictionary* _dataSource; 
 }
-```
 
+@property (assign, nonatomic) BOOL initialized;
 
-## Property Attributes
-
-Property attributes should be explicitly listed, and will help new programmers when reading the code.  The order of properties should be storage then atomicity, which is consistent with automatically generated code when connecting UI elements from Interface Builder.
-
-**Preferred:**
-
-```objc
-@property (weak, nonatomic) IBOutlet UIView *containerView;
-@property (strong, nonatomic) NSString *tutorialName;
-```
-
-**Not Preferred:**
-
-```objc
-@property (nonatomic, weak) IBOutlet UIView *containerView;
-@property (nonatomic) NSString *tutorialName;
-```
-
-Properties with mutable counterparts (e.g. NSString) should prefer `copy` instead of `strong`. 
-Why? Even if you declared a property as `NSString` somebody might pass in an instance of an `NSMutableString` and then change it without you noticing that.  
-
-**Preferred:**
-
-```objc
-@property (copy, nonatomic) NSString *tutorialName;
-```
-
-**Not Preferred:**
-
-```objc
-@property (strong, nonatomic) NSString *tutorialName;
 ```
 
 ## Dot-Notation Syntax
@@ -363,11 +330,21 @@ NSNumber *buildingStreetNumber = [NSNumber numberWithInteger:10018];
 
 ## Constants
 
-Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `static` constants and not `#define`s unless explicitly being used as a macro.
+Constants are preferred over in-line string literals or numbers, as they allow for easy reproduction of commonly used variables and can be quickly changed without the need for find and replace. Constants should be declared as `static` constants.
+
+An exception to this is when assigning constant strings in compiling time is required.
+
+In other cases `#define`s should explicitly be used as a macro.
 
 **Preferred:**
 
 ```objc
+#define STAGING_ADDRESS http://staging.redsteedstudios.com
+#define LIVE_ADDRESS http://redsteedstudios.com
+
+#define NETWORK_ADDRESS LIVE_ADDRESS
+
+
 static NSString * const RWTAboutViewControllerCompanyName = @"RayWenderlich.com";
 
 static CGFloat const RWTImageThumbnailHeight = 50.0;
@@ -383,26 +360,17 @@ static CGFloat const RWTImageThumbnailHeight = 50.0;
 
 ## Enumerated Types
 
-When using `enum`s, it is recommended to use the new fixed underlying type specification because it has stronger type checking and code completion. The SDK now includes a macro to facilitate and encourage use of fixed underlying types: `NS_ENUM()`
+When using `enum`s, it is recommended to use the new fixed underlying type specification because it has stronger type checking and code completion. The SDK now includes a macro to facilitate and encourage use of fixed underlying types: `NS_ENUM()`. Whenever possible, a default/undefined value (for edge cases) should be also assigned to the 0 value.
 
 **For Example:**
 
 ```objc
-typedef NS_ENUM(NSInteger, RWTLeftMenuTopItemType) {
-  RWTLeftMenuTopItemMain,
-  RWTLeftMenuTopItemShows,
-  RWTLeftMenuTopItemSchedule
-};
-```
-
-You can also make explicit value assignments (showing older k-style constant definition):
-
-```objc
-typedef NS_ENUM(NSInteger, RWTGlobalConstants) {
-  RWTPinSizeMin = 1,
-  RWTPinSizeMax = 5,
-  RWTPinCountMin = 100,
-  RWTPinCountMax = 500,
+typedef NS_ENUM(NSInteger, RssStatus) {
+  RssStatusAvailable,
+  RssStatusBusy, 
+  RssStatusAway,
+  
+  RssStatusUnknown = 0
 };
 ```
 
@@ -420,40 +388,30 @@ enum GlobalConstants {
 
 ## Case Statements
 
-Braces are not required for case statements, unless enforced by the complier.  
-When a case contains more than one line, braces should be added.
+Braces are required for case statements even tough it's not always enforced by the complier.  
 
 ```objc
 switch (condition) {
   case 1:
+  {
     // ...
-    break;
-  case 2: {
+  }
+    break;    
+  case 2: 
+  {
     // ...
     // Multi-line example using braces
-    break;
   }
+    break;  
   case 3:
+  {
     // ...
+  }
     break;
   default: 
+  {
     // ...
-    break;
-}
-
-```
-
-There are times when the same code can be used for multiple cases, and a fall-through should be used.  A fall-through is the removal of the 'break' statement for a case thus allowing the flow of execution to pass to the next case value.  A fall-through should be commented for coding clarity.
-
-```objc
-switch (condition) {
-  case 1:
-    // ** fall-through! **
-  case 2:
-    // code executed for values 1 and 2
-    break;
-  default: 
-    // ...
+  }
     break;
 }
 
@@ -466,13 +424,19 @@ RWTLeftMenuTopItemType menuType = RWTLeftMenuTopItemMain;
 
 switch (menuType) {
   case RWTLeftMenuTopItemMain:
+  {
     // ...
+  }
     break;
   case RWTLeftMenuTopItemShows:
+  {
     // ...
+  }
     break;
   case RWTLeftMenuTopItemSchedule:
+  {
     // ...
+  }
     break;
 }
 ```
@@ -529,7 +493,8 @@ Conditional bodies should always use braces even when a conditional body could b
 
 **Preferred:**
 ```objc
-if (!error) {
+if (!error)
+{
   return success;
 }
 ```
@@ -571,14 +536,18 @@ result = a > b ? x = c > d ? c : d : y;
 Init methods should follow the convention provided by Apple's generated code template.  A return type of 'instancetype' should also be used instead of 'id'.
 
 ```objc
-- (instancetype)init {
+- (instancetype)init 
+{
   self = [super init];
-  if (self) {
+  if (self) 
+  {
     // ...
   }
   return self;
 }
 ```
+
+Convenience initializers should always be created to conform the super class initializers as well. For convenience initializers see Apple's guideline: [Multiple initializers](https://developer.apple.com/library/IOs/documentation/General/Conceptual/DevPedia-CocoaCore/MultipleInitializers.html)
 
 See [Class Constructor Methods](#class-constructor-methods) for link to article on instancetype.
 
@@ -621,22 +590,25 @@ CGFloat x = frame.origin.x;
 CGFloat y = frame.origin.y;
 CGFloat width = frame.size.width;
 CGFloat height = frame.size.height;
-CGRect frame = (CGRect){ .origin = CGPointZero, .size = frame.size };
 ```
 
 ## Golden Path
 
-When coding with conditionals, the left hand margin of the code should be the "golden" or "happy" path.  That is, don't nest `if` statements.  Multiple return statements are OK.
+When coding with conditionals, the left hand margin of the code should be the "golden" or "happy" path.  That is, don't nest `if` statements.  Multiple return statements are to be avoided.
 
 **Preferred:**
 
 ```objc
 - (void)someMethod {
-  if (![someOther boolValue]) {
-	return;
+
+BOOL isSuccess = NO;
+
+  if ([someOther boolValue]) 
+  {
+	isSuccess = YES;
   }
 
-  //Do something important
+return isSuccess;
 }
 ```
 
@@ -649,30 +621,6 @@ When coding with conditionals, the left hand margin of the code should be the "g
   }
 }
 ```
-
-## Error handling
-
-When methods return an error parameter by reference, switch on the returned value, not the error variable.
-
-**Preferred:**
-```objc
-NSError *error;
-if (![self trySomethingWithError:&error]) {
-  // Handle Error
-}
-```
-
-**Not Preferred:**
-```objc
-NSError *error;
-[self trySomethingWithError:&error];
-if (error) {
-  // Handle Error
-}
-```
-
-Some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so switching on the error can cause false negatives (and subsequently crash).
-
 
 ## Singletons
 
@@ -705,22 +653,6 @@ A long line of code like this should be carried on to the second line adhering t
 self.productsRequest = [[SKProductsRequest alloc] 
   initWithProductIdentifiers:productIdentifiers];
 ```
-
-
-## Smiley Face
-
-Smiley faces are a very prominent style feature of the raywenderlich.com site!  It is very important to have the correct smile signifying the immense amount of happiness and excitement for the coding topic.  The end square bracket is used because it represents the largest smile able to be captured using ascii art.  A half-hearted smile is represented if an end parenthesis is used, and thus not preferred.
-
-**Preferred:**
-```objc
-:]
-```
-
-**Not Preferred:**
-```objc
-:)
-```  
-
 
 ## Xcode project
 
